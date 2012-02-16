@@ -611,6 +611,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)layoutImage:(TTStyledImageNode*)imageNode container:(TTStyledElement*)element {
+    
   UIImage* image = imageNode.image;
   if (!image && imageNode.URL) {
     if (!_invalidImages) {

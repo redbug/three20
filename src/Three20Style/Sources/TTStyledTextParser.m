@@ -217,7 +217,8 @@
     node.URL =  [attributeDict objectForKey:@"href"];
     [self pushNode:node];
 
-  } else if ([tag isEqualToString:@"img"]) {
+  } 
+  else if ([tag isEqualToString:@"img"]) {
     TTStyledImageNode* node = [[[TTStyledImageNode alloc] init] autorelease];
     node.className =  [attributeDict objectForKey:@"class"];
     node.URL =  [attributeDict objectForKey:@"src"];
