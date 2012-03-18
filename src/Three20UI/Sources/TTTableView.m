@@ -146,38 +146,44 @@ static const CGFloat kCancelHighlightThreshold = 4.0f;
 #pragma mark UIScrollView
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-- (void)setContentSize:(CGSize)size {
-  if (_contentOrigin) {
-    CGFloat minHeight = self.height + _contentOrigin;
-    if (size.height < minHeight) {
-      size.height = self.height + _contentOrigin;
-    }
-  }
-
-  CGFloat y = self.contentOffset.y;
-  [super setContentSize:size];
-
-  if (_contentOrigin) {
-    // As described below in setContentOffset, UITableView insists on messing with the
-    // content offset sometimes when you change the content size or the height of the table
-    self.contentOffset = CGPointMake(0, y);
-  }
-}
-
+//------------------------------------------------------
+// 3.18.2012 
+// Redbug comment out following two methods
+// Ref: http://stackoverflow.com/a/2256442
+//------------------------------------------------------
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-- (void)setContentOffset:(CGPoint)point {
-  // UITableView (and UIScrollView) are really stupid about resetting the content offset
-  // when the table view itself is resized.  There are times when I scroll to a point and then
-  // disable scrolling, and I don't want the table view scrolling somewhere else just because
-  // it was resized.
-  if (self.scrollEnabled) {
-    if (!(_contentOrigin && self.contentOffset.y == _contentOrigin && point.y == 0)) {
-      [super setContentOffset:point];
-    }
-  }
-}
+//- (void)setContentSize:(CGSize)size {
+//  if (_contentOrigin) {
+//    CGFloat minHeight = self.height + _contentOrigin;
+//    if (size.height < minHeight) {
+//      size.height = self.height + _contentOrigin;
+//    }
+//  }
+//
+//  CGFloat y = self.contentOffset.y;
+//  [super setContentSize:size];
+//
+//  if (_contentOrigin) {
+//    // As described below in setContentOffset, UITableView insists on messing with the
+//    // content offset sometimes when you change the content size or the height of the table
+//    self.contentOffset = CGPointMake(0, y);
+//  }
+//}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//- (void)setContentOffset:(CGPoint)point {
+//  // UITableView (and UIScrollView) are really stupid about resetting the content offset
+//  // when the table view itself is resized.  There are times when I scroll to a point and then
+//  // disable scrolling, and I don't want the table view scrolling somewhere else just because
+//  // it was resized.
+//  if (self.scrollEnabled) {
+//    if (!(_contentOrigin && self.contentOffset.y == _contentOrigin && point.y == 0)) {
+//      [super setContentOffset:point];
+//    }
+//  }
+//}
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
