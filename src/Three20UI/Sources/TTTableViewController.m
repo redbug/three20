@@ -516,26 +516,33 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)showEmpty:(BOOL)show {
-  if (show) {
-    NSString* title = [_dataSource titleForEmpty];
-    NSString* subtitle = [_dataSource subtitleForEmpty];
-    UIImage* image = [_dataSource imageForEmpty];
-    if (title.length || subtitle.length || image) {
-      TTErrorView* errorView = [[[TTErrorView alloc] initWithTitle:title
-                                                          subtitle:subtitle
-                                                             image:image] autorelease];
-      errorView.backgroundColor = _tableView.backgroundColor;
-      self.emptyView = errorView;
-
+    if (show) {
+        NSString* title = [_dataSource titleForEmpty];
+        NSString* subtitle = [_dataSource subtitleForEmpty];
+        UIImage* image = [_dataSource imageForEmpty];
+        if (title.length || subtitle.length || image) {
+            TTErrorView* errorView = [[[TTErrorView alloc] initWithTitle:title
+                                                                subtitle:subtitle
+                                                                   image:image] autorelease];
+            
+            if ([_dataSource reloadButtonForEmpty]) {
+                [errorView addReloadButton];
+                [errorView.reloadButton addTarget:self
+                                           action:@selector(reload)
+                                 forControlEvents:UIControlEventTouchUpInside];
+            }
+            errorView.backgroundColor = _tableView.backgroundColor;
+            self.emptyView = errorView;
+            
+        } else {
+            self.emptyView = nil;
+        }
+        _tableView.dataSource = nil;
+        [_tableView reloadData];
+        
     } else {
-      self.emptyView = nil;
+        self.emptyView = nil;
     }
-    _tableView.dataSource = nil;
-    [_tableView reloadData];
-
-  } else {
-    self.emptyView = nil;
-  }
 }
 
 
